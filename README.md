@@ -59,7 +59,7 @@
             margin-top: 30px;
         }
         .credit p {
-            font-size: 12px; /* جعل النص أصغر */
+            font-size: 14px; /* الحفاظ على حجم الخط الطبيعي */
         }
         .links {
             text-align: center;
