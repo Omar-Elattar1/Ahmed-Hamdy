@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع الأسئلة والأجوبة للشيخ أحمد حمدي</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -13,53 +13,24 @@
     </header>
 
     <main>
-        <!-- قسم طرح الأسئلة -->
-        <section id="ask-question">
-            <h2>اسأل سؤالك</h2>
-            <input type="text" id="questionInput" placeholder="اكتب سؤالك هنا...">
-            <button onclick="submitQuestion()">إرسال</button>
+        <section id="ask-section">
+            <h2>اطرح سؤالك</h2>
+            <textarea id="question-input" placeholder="اكتب سؤالك هنا..."></textarea>
+            <button id="submit-question">إرسال</button>
         </section>
 
-        <!-- قسم عرض جميع الأسئلة -->
-        <section id="questions">
-            <h2>الأسئلة المطروحة</h2>
-            <div id="questions-list"></div>
-        </section>
-
-        <!-- تسجيل دخول الأدمن -->
-        <section id="admin-login">
-            <h2>تسجيل دخول الأدمن</h2>
-            <input type="text" id="adminUsername" placeholder="اسم المستخدم">
-            <input type="password" id="adminPassword" placeholder="كلمة المرور">
-            <button onclick="adminLogin()">تسجيل الدخول</button>
-        </section>
-
-        <!-- لوحة تحكم الأدمن -->
-        <section id="admin-panel" style="display: none;">
-            <h2>لوحة تحكم الأدمن</h2>
-            <div id="unanswered-questions"></div>
-            <button onclick="deleteAllQuestions()">حذف جميع الأسئلة</button>
+        <section id="questions-section">
+            <h2>الأسئلة</h2>
+            <div id="questions-list">
+                <!-- سيتم عرض الأسئلة هنا -->
+            </div>
         </section>
     </main>
 
-    <!-- قسم وسائل التواصل -->
     <footer>
-        <div id="social-links">
-            <a href="https://www.tiktok.com/@ahmedhamdy_06" class="tiktok">TikTok</a>
-            <a href="https://www.instagram.com/ahamdy243" class="instagram">Instagram</a>
-            <a href="https://youtube.com/@ahmedhamdy1585" class="youtube">YouTube</a>
-        </div>
-
-        <!-- توقيع الموقع -->
-        <p>صلِّ على النبي</p>
+        <p class="salat">صلِّ على النبي</p>
         <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" class="designer-link">عمر</a></p>
     </footer>
-
-    <!-- روابط سكربتات الموقع -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <script src="firebase.js"></script>
-    <script src="script.js"></script>
 
 </body>
 </html>
