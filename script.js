@@ -1,37 +1,44 @@
+const adminPasswordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd49e4f493b6a000"; // "password321" مشفرة
+
 function submitQuestion() {
-    let questionText = document.getElementById("questionInput").value;
-    if (questionText.trim() === "") return;
+    const questionInput = document.getElementById("questionInput").value;
+    if (questionInput.trim() === "") return;
+    
+    const questionData = {
+        question: questionInput,
+        answered: false
+    };
 
-    db.collection("questions").add({
-        question: questionText,
-        answer: ""
-    });
-
+    saveQuestionToFirebase(questionData);
     document.getElementById("questionInput").value = "";
 }
 
-function fetchQuestions() {
-    db.collection("questions").onSnapshot(snapshot => {
-        let questionsList = document.getElementById("questionsList");
-        let storedQuestions = document.getElementById("storedQuestions");
-        questionsList.innerHTML = "";
-        storedQuestions.innerHTML = "";
+function adminLogin() {
+    const enteredPassword = document.getElementById("adminPassword").value;
+    const enteredHash = sha256(enteredPassword);
 
-        snapshot.docs.forEach(doc => {
-            let data = doc.data();
-            let questionDiv = document.createElement("div");
-            questionDiv.classList.add("question");
-            questionDiv.classList.add(data.answer ? "answered" : "unanswered");
-            questionDiv.innerHTML = `<p><strong>سؤال:</strong> ${data.question}</p>`;
-
-            if (data.answer) {
-                questionDiv.innerHTML += `<p><strong>الإجابة:</strong> ${data.answer}</p>`;
-            }
-
-            storedQuestions.appendChild(questionDiv);
-            questionsList.appendChild(questionDiv.cloneNode(true));
-        });
-    });
+    if (enteredHash === adminPasswordHash) {
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+        loadUnansweredQuestions();
+    } else {
+        alert("كلمة المرور غير صحيحة!");
+    }
 }
 
-fetchQuestions();
+function deleteAllQuestions() {
+    if (confirm("هل أنت متأكد أنك تريد حذف جميع الأسئلة؟")) {
+        clearAllQuestionsFromFirebase();
+    }
+}
+
+// دالة SHA256 لتشفير كلمة المرور
+function sha256(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    return crypto.subtle.digest("SHA-256", data).then(hash => {
+        return Array.from(new Uint8Array(hash))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+    });
+}
