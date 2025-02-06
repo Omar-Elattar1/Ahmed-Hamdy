@@ -59,7 +59,7 @@
             margin-top: 30px;
         }
         .credit p {
-            font-size: 14px; /* الحفاظ على حجم الخط الطبيعي */
+            font-size: 14px;
         }
         .links {
             text-align: center;
@@ -73,38 +73,95 @@
         .links a:hover {
             text-decoration: underline;
         }
+        /* قسم تسجيل الدخول */
+        .login-form {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .login-form input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 250px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="header">
-            <h1>موقع طرح الأسئلة</h1>
-            <p>اطرح سؤالك هنا، وسأجيب عليه قريبًا!</p>
+        <!-- نموذج تسجيل الدخول للأدمن -->
+        <div id="login-section" class="login-form">
+            <h2>تسجيل الدخول</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم">
+            <input type="password" id="password" placeholder="كلمة المرور">
+            <button onclick="login()">دخول</button>
+            <p id="login-error" style="color: red; display: none;">اسم المستخدم أو كلمة المرور غير صحيحة</p>
         </div>
 
-        <div class="question-form">
-            <label for="question">سؤالك:</label>
-            <textarea id="question" rows="4" placeholder="اكتب سؤالك هنا..."></textarea>
-            <button class="submit-button" onclick="submitQuestion()">إرسال السؤال</button>
-        </div>
+        <!-- لو تم تسجيل الدخول بنجاح يتم عرض المحتوى -->
+        <div id="content-section" style="display: none;">
+            <div class="header">
+                <h1>موقع طرح الأسئلة</h1>
+                <p>اطرح سؤالك هنا، وسيتم الإجابه عليه قريبًا!</p>
+            </div>
 
-        <div class="questions" id="questions-list">
-            <!-- الأسئلة ستظهر هنا -->
-        </div>
+            <div class="question-form">
+                <label for="question">سؤالك:</label>
+                <textarea id="question" rows="4" placeholder="اكتب سؤالك هنا..."></textarea>
+                <button class="submit-button" onclick="submitQuestion()">إرسال السؤال</button>
+            </div>
 
-        <div class="links">
-            <a href="https://www.instagram.com/ahamdy243?igsh=ajNjZW1tb3pmZnN2" target="_blank">انستاجرام</a>
-            <a href="https://www.tiktok.com/@ahmedhamdy_06" target="_blank">تيكتوك</a>
-            <a href="https://youtube.com/@ahmedhamdy1585?si=1hcfzCOXJQTi3kzF" target="_blank">يوتيوب</a>
-        </div>
+            <div class="questions" id="questions-list">
+                <!-- الأسئلة ستظهر هنا -->
+            </div>
 
-        <div class="credit">
-            <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
-            <p>© جميع الحقوق محفوظة</p>
+            <div class="links">
+                <a href="https://www.instagram.com/ahamdy243?igsh=ajNjZW1tb3pmZnN2" target="_blank">انستاجرام</a>
+                <a href="https://www.tiktok.com/@ahmedhamdy_06" target="_blank">تيكتوك</a>
+                <a href="https://youtube.com/@ahmedhamdy1585?si=1hcfzCOXJQTi3kzF" target="_blank">يوتيوب</a>
+            </div>
+
+            <div class="credit">
+                <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
+                <p>© جميع الحقوق محفوظة</p>
+            </div>
         </div>
     </div>
 
     <script>
+        // بيانات تسجيل الدخول الخاصة بالأدمن (يمكن تعديلها حسب الحاجة)
+        const adminUsername = "admin";
+        const adminPassword = "12345";
+
+        // دالة لتسجيل الدخول
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+            if (username === adminUsername && password === adminPassword) {
+                document.getElementById('login-section').style.display = 'none'; // إخفاء قسم تسجيل الدخول
+                document.getElementById('content-section').style.display = 'block'; // إظهار المحتوى
+            } else {
+                document.getElementById('login-error').style.display = 'block'; // إظهار رسالة خطأ إذا كانت البيانات غير صحيحة
+            }
+        }
+
+        // دالة لإرسال السؤال
         function submitQuestion() {
             var question = document.getElementById('question').value;
             if (question.trim() !== "") {
