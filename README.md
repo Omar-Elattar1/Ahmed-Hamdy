@@ -152,17 +152,13 @@
 
         function showLogin() {
             var loginSection = document.getElementById('login-section');
-            if (loginSection.style.display === "block") {
-                loginSection.style.display = "none";
-            } else {
-                loginSection.style.display = "block";
-            }
+            loginSection.style.display = loginSection.style.display === "block" ? "none" : "block";
         }
 
         function login() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
-            
+
             if (username === adminUsername && password === adminPassword) {
                 document.getElementById('login-section').style.display = 'none'; 
                 document.getElementById('admin-panel').style.display = 'block';
@@ -176,7 +172,10 @@
             if (questionText.trim() !== "") {
                 var questionDiv = document.createElement('div');
                 questionDiv.classList.add('question');
-                questionDiv.innerHTML = `<p><strong>سؤال:</strong> ${questionText}</p><p><strong>الجواب:</strong> لم يتم الرد بعد.</p>`;
+                questionDiv.innerHTML = `
+                    <p><strong>سؤال:</strong> ${questionText}</p>
+                    <p class="answer"><strong>الجواب:</strong> لم يتم الرد بعد.</p>
+                `;
                 document.getElementById('questions-list').appendChild(questionDiv);
                 document.getElementById('question').value = "";
             } else {
@@ -185,12 +184,12 @@
         }
 
         function answerNextQuestion() {
-            var unansweredQuestions = document.querySelectorAll('.question p:nth-child(2)');
+            var unansweredQuestions = document.querySelectorAll('.question .answer');
             for (let i = 0; i < unansweredQuestions.length; i++) {
                 if (unansweredQuestions[i].innerText.includes("لم يتم الرد بعد")) {
                     var answer = prompt("اكتب إجابتك لهذا السؤال:");
                     if (answer) {
-                        unansweredQuestions[i].innerText = `الجواب: ${answer}`;
+                        unansweredQuestions[i].innerHTML = `<strong>الجواب:</strong> ${answer}`;
                     }
                     break;
                 }
@@ -203,5 +202,6 @@
             }
         }
     </script>
+
 </body>
 </html>
