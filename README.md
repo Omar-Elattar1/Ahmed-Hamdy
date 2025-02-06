@@ -76,7 +76,7 @@
         const adminPassword = "password123";
 
         let isAdminLoggedIn = false;
-        let currentQuestionIndex = null;
+        let currentQuestionIndex = 0;
 
         // تحميل الأسئلة
         function loadQuestions() {
