@@ -144,11 +144,23 @@
             <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
             <p style="font-size: 10px;">© جميع الحقوق محفوظة</p>
         </div>
+
+        <!-- صفحة الإجابة -->
+        <div id="answer-page" class="container" style="display: none;">
+            <div class="header">
+                <h1>الإجابة على الأسئلة</h1>
+                <p id="current-question"></p>
+            </div>
+            <textarea id="answer" rows="4" placeholder="اكتب إجابتك هنا..."></textarea>
+            <button class="submit-button" onclick="submitAnswer()">إرسال الإجابة</button>
+        </div>
+
     </div>
 
     <script>
         const adminUsername = "admin";
         const adminPassword = "12345";
+        let currentQuestionIndex = 0;
 
         function showLogin() {
             document.getElementById('login-section').style.display = "block";
@@ -161,6 +173,7 @@
             if (username === adminUsername && password === adminPassword) {
                 document.getElementById('login-section').style.display = 'none'; 
                 document.getElementById('admin-panel').style.display = 'block';
+                loadQuestions();
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
@@ -189,23 +202,34 @@
                 questionDiv.innerHTML = `
                     <p><strong>سؤال:</strong> ${q.question}</p>
                     <p class="answer"><strong>الجواب:</strong> ${q.answer}</p>
+                    <button onclick="startAnswering(${index})">إجابة</button>
                 `;
                 questionsList.appendChild(questionDiv);
             });
         }
 
-        function answerNextQuestion() {
+        function startAnswering(index) {
             var questions = JSON.parse(localStorage.getItem("questions")) || [];
-            for (let i = 0; i < questions.length; i++) {
-                if (questions[i].answer === "لم يتم الرد بعد") {
-                    var answer = prompt("اكتب إجابتك لهذا السؤال:");
-                    if (answer) {
-                        questions[i].answer = answer;
-                        localStorage.setItem("questions", JSON.stringify(questions));
-                        loadQuestions();
-                    }
-                    break;
+            currentQuestionIndex = index;
+            document.getElementById('current-question').innerText = "السؤال: " + questions[currentQuestionIndex].question;
+            document.getElementById('answer-page').style.display = "block";
+        }
+
+        function submitAnswer() {
+            var answerText = document.getElementById('answer').value;
+            if (answerText.trim() !== "") {
+                var questions = JSON.parse(localStorage.getItem("questions")) || [];
+                questions[currentQuestionIndex].answer = answerText;
+                localStorage.setItem("questions", JSON.stringify(questions));
+                currentQuestionIndex++;
+                document.getElementById('answer').value = "";
+                loadQuestions();
+                document.getElementById('answer-page').style.display = "none";
+                if (currentQuestionIndex < questions.length) {
+                    startAnswering(currentQuestionIndex);
                 }
+            } else {
+                alert("يرجى كتابة إجابة أولاً!");
             }
         }
 
