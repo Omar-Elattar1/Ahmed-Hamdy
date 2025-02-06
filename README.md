@@ -2,175 +2,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع الأسئلة</title>
+    <title>موقع الأسئلة والأجوبة</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
+            text-align: center;
+            direction: rtl;
             margin: 0;
             padding: 0;
-            direction: rtl;
+        }
+        h1 {
+            color: #2c3e50;
         }
         .container {
-            width: 80%;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .header {
-            text-align: center;
-            padding: 20px;
-            background-color: #4CAF50;
-            color: white;
+        #login-section, #admin-panel {
+            display: none;
         }
-        .question-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .submit-button, .admin-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-            display: block;
-        }
-        .submit-button:hover, .admin-button:hover {
-            background-color: #45a049;
-        }
-        .questions {
-            margin-top: 30px;
+        #login-error {
+            color: red;
+            display: none;
         }
         .question {
+            background-color: #ecf0f1;
             padding: 10px;
-            background-color: #fff;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            margin: 5px 0;
+            border-radius: 5px;
         }
-        .admin-panel {
+        .answer-box {
+            margin: 20px 0;
+        }
+        #answer-page {
             display: none;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #eee;
-            border-radius: 8px;
-        }
-        .login-box {
-            text-align: center;
-            margin-top: 20px;
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
-        .login-form {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background-color: #f1f1f1;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        .login-form input {
-            padding: 10px;
-            margin: 10px;
-            width: 250px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .credit {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: gray;
-        }
-        .links {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .links a {
-            color: #4CAF50;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-        .links a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
-<body onload="loadQuestions()">
+<body>
 
-    <div class="container">
-        <div class="header">
-            <h1>موقع طرح الأسئلة</h1>
-            <p>اطرح سؤالك هنا، وسيتم الإجابه عليه قريبًا!</p>
-        </div>
+    <h1>مرحبًا بك في صفحة الأسئلة والأجوبة!</h1>
+    
+    <div id="login-section" class="container">
+        <h3>تسجيل الدخول للإجابة على الأسئلة:</h3>
+        <input type="text" id="username" placeholder="اسم المستخدم" /><br><br>
+        <input type="password" id="password" placeholder="كلمة المرور" /><br><br>
+        <button onclick="login()">تسجيل الدخول</button>
+        <div id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة!</div>
+    </div>
 
-        <div class="question-form">
-            <textarea id="question" rows="4" placeholder="اكتب سؤالك هنا..."></textarea>
-            <button class="submit-button" onclick="submitQuestion()">إرسال السؤال</button>
-        </div>
+    <div id="admin-panel" class="container">
+        <h3>الأسئلة غير المجابة:</h3>
+        <div id="questions-list"></div>
+        <button onclick="deleteAllQuestions()">مسح جميع الأسئلة</button>
+    </div>
 
-        <div class="questions" id="questions-list">
-            <!-- سيتم عرض الأسئلة هنا -->
-        </div>
-
-        <div class="links">
-            <a href="https://www.instagram.com/ahamdy243" target="_blank">انستاجرام</a>
-            <a href="https://www.tiktok.com/@ahmedhamdy_06" target="_blank">تيكتوك</a>
-            <a href="https://youtube.com/@ahmedhamdy1585" target="_blank">يوتيوب</a>
-        </div>
-
-        <div class="login-box" onclick="showLogin()">تسجيل الدخول</div>
-
-        <div id="login-section" class="login-form">
-            <h2>تسجيل الدخول</h2>
-            <input type="text" id="username" placeholder="اسم المستخدم">
-            <input type="password" id="password" placeholder="كلمة المرور">
-            <button onclick="login()">دخول</button>
-            <p id="login-error" style="color: red; display: none;">اسم المستخدم أو كلمة المرور غير صحيحة</p>
-        </div>
-
-        <div id="admin-panel" class="admin-panel">
-            <button class="admin-button" onclick="answerNextQuestion()">الإجابة عن الأسئلة غير المجاب عنها</button>
-            <button class="admin-button" onclick="clearQuestions()">حذف كل الأسئلة</button>
-        </div>
-
-        <div class="credit">
-            <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
-            <p style="font-size: 10px;">© جميع الحقوق محفوظة</p>
-        </div>
-
-        <!-- صفحة الإجابة -->
-        <div id="answer-page" class="container" style="display: none;">
-            <div class="header">
-                <h1>الإجابة على الأسئلة</h1>
-                <p id="current-question"></p>
-            </div>
-            <textarea id="answer" rows="4" placeholder="اكتب إجابتك هنا..."></textarea>
-            <button class="submit-button" onclick="submitAnswer()">إرسال الإجابة</button>
-        </div>
-
+    <div id="answer-page" class="container">
+        <h3>إجابة السؤال</h3>
+        <p id="current-question"></p>
+        <textarea id="answer" placeholder="اكتب إجابتك هنا..." rows="4" cols="50"></textarea><br><br>
+        <button onclick="submitAnswer()">إرسال الإجابة</button>
     </div>
 
     <script>
+        // بيانات الإدمن
         const adminUsername = "admin";
-        const adminPassword = "12345";
+        const adminPassword = "password123";
+
+        let isAdminLoggedIn = false;
         let currentQuestionIndex = 0;
 
-        function showLogin() {
-            document.getElementById('login-section').style.display = "block";
+        // تحميل الأسئلة
+        function loadQuestions() {
+            const questions = JSON.parse(localStorage.getItem("questions")) || [];
+            let questionListHTML = '';
+            questions.forEach((q, index) => {
+                if (!q.answer) {  // يظهر فقط الأسئلة غير المجابة
+                    questionListHTML += `
+                        <div class="question">
+                            <p>${q.question}</p>
+                            <button onclick="startAnswering(${index})" ${q.answered ? 'disabled' : ''}>الإجابة</button>
+                        </div>
+                    `;
+                }
+            });
+            document.getElementById('questions-list').innerHTML = questionListHTML;
         }
 
+        // تسجيل الدخول
         function login() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
 
             if (username === adminUsername && password === adminPassword) {
+                isAdminLoggedIn = true;  // تأكيد أن الإدمن مسجل دخوله
                 document.getElementById('login-section').style.display = 'none'; 
                 document.getElementById('admin-panel').style.display = 'block';
                 loadQuestions();
@@ -179,47 +110,31 @@
             }
         }
 
-        function submitQuestion() {
-            var questionText = document.getElementById('question').value;
-            if (questionText.trim() !== "") {
-                var questions = JSON.parse(localStorage.getItem("questions")) || [];
-                questions.push({ question: questionText, answer: "لم يتم الرد بعد" });
-                localStorage.setItem("questions", JSON.stringify(questions));
-                loadQuestions();
-                document.getElementById('question').value = "";
-            } else {
-                alert("يرجى كتابة سؤال أولاً!");
-            }
-        }
-
-        function loadQuestions() {
-            var questions = JSON.parse(localStorage.getItem("questions")) || [];
-            var questionsList = document.getElementById('questions-list');
-            questionsList.innerHTML = "";
-            questions.forEach((q, index) => {
-                var questionDiv = document.createElement('div');
-                questionDiv.classList.add('question');
-                questionDiv.innerHTML = `
-                    <p><strong>سؤال:</strong> ${q.question}</p>
-                    <p class="answer"><strong>الجواب:</strong> ${q.answer}</p>
-                    <button onclick="startAnswering(${index})">إجابة</button>
-                `;
-                questionsList.appendChild(questionDiv);
-            });
-        }
-
+        // بدء الإجابة على السؤال
         function startAnswering(index) {
+            if (!isAdminLoggedIn) {
+                alert("يجب عليك تسجيل الدخول أولاً كإدمن");
+                return;
+            }
+
             var questions = JSON.parse(localStorage.getItem("questions")) || [];
             currentQuestionIndex = index;
             document.getElementById('current-question').innerText = "السؤال: " + questions[currentQuestionIndex].question;
             document.getElementById('answer-page').style.display = "block";
         }
 
+        // إرسال الإجابة
         function submitAnswer() {
+            if (!isAdminLoggedIn) {
+                alert("يجب عليك تسجيل الدخول أولاً كإدمن");
+                return;
+            }
+
             var answerText = document.getElementById('answer').value;
             if (answerText.trim() !== "") {
                 var questions = JSON.parse(localStorage.getItem("questions")) || [];
                 questions[currentQuestionIndex].answer = answerText;
+                questions[currentQuestionIndex].answered = true;  // تمييز السؤال بأنه تمت الإجابة عليه
                 localStorage.setItem("questions", JSON.stringify(questions));
                 currentQuestionIndex++;
                 document.getElementById('answer').value = "";
@@ -233,13 +148,26 @@
             }
         }
 
-        function clearQuestions() {
-            if (confirm("هل أنت متأكد من حذف جميع الأسئلة؟")) {
-                localStorage.removeItem("questions");
-                loadQuestions();
-            }
+        // مسح جميع الأسئلة
+        function deleteAllQuestions() {
+            localStorage.removeItem("questions");
+            loadQuestions();
+        }
+
+        // إضافة بعض الأسئلة مبدئيًا
+        function addSampleQuestions() {
+            const sampleQuestions = [
+                { question: "ما هو اسمك؟", answer: "", answered: false },
+                { question: "ما هي هواياتك؟", answer: "", answered: false },
+                { question: "ما هو لونك المفضل؟", answer: "", answered: false }
+            ];
+            localStorage.setItem("questions", JSON.stringify(sampleQuestions));
+        }
+
+        // إذا لم تكن الأسئلة موجودة، أضفها
+        if (!localStorage.getItem("questions")) {
+            addSampleQuestions();
         }
     </script>
-
 </body>
 </html>
