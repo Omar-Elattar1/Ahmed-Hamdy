@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الأسئلة والأجوبة للشيخ أحمد حمدي</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+
+    <h1>موقع الأسئلة والأجوبة للشيخ أحمد حمدي</h1>
+    <p>اسأل وسنجيبك بإذن الله</p>
+
+    <div class="container">
+        <input type="text" id="questionInput" placeholder="اكتب سؤالك هنا...">
+        <button onclick="submitQuestion()">إرسال السؤال</button>
+    </div>
+
+    <div class="container">
+        <h2>الأسئلة</h2>
+        <div id="questionsList"></div>
+    </div>
+
+    <div class="container">
+        <h2>تخزين الأسئلة</h2>
+        <div id="storedQuestions"></div>
+    </div>
+
+    <div class="container social-icons">
+        <a href="https://www.tiktok.com/@ahmedhamdy_06" class="tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+        <a href="https://www.instagram.com/ahamdy243" class="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://youtube.com/@ahmedhamdy1585" class="youtube"><i class="fab fa-youtube"></i> YouTube</a>
+    </div>
+
+    <div class="footer">
+        <p>صلي على النبي ﷺ</p>
+        <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar">عمر</a></p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
