@@ -76,7 +76,7 @@
         }
         .login-form input {
             padding: 10px;
-            margin: 10px 0;
+            margin: 10px;
             width: 250px;
             font-size: 16px;
             border: 1px solid #ddd;
@@ -102,7 +102,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="loadQuestions()">
 
     <div class="container">
         <div class="header">
@@ -120,9 +120,9 @@
         </div>
 
         <div class="links">
-            <a href="https://www.instagram.com/ahamdy243?igsh=ajNjZW1tb3pmZnN2" target="_blank">انستاجرام</a>
+            <a href="https://www.instagram.com/ahamdy243" target="_blank">انستاجرام</a>
             <a href="https://www.tiktok.com/@ahmedhamdy_06" target="_blank">تيكتوك</a>
-            <a href="https://youtube.com/@ahmedhamdy1585?si=1hcfzCOXJQTi3kzF" target="_blank">يوتيوب</a>
+            <a href="https://youtube.com/@ahmedhamdy1585" target="_blank">يوتيوب</a>
         </div>
 
         <div class="login-box" onclick="showLogin()">تسجيل الدخول</div>
@@ -151,8 +151,7 @@
         const adminPassword = "12345";
 
         function showLogin() {
-            var loginSection = document.getElementById('login-section');
-            loginSection.style.display = loginSection.style.display === "block" ? "none" : "block";
+            document.getElementById('login-section').style.display = "block";
         }
 
         function login() {
@@ -170,26 +169,40 @@
         function submitQuestion() {
             var questionText = document.getElementById('question').value;
             if (questionText.trim() !== "") {
-                var questionDiv = document.createElement('div');
-                questionDiv.classList.add('question');
-                questionDiv.innerHTML = `
-                    <p><strong>سؤال:</strong> ${questionText}</p>
-                    <p class="answer"><strong>الجواب:</strong> لم يتم الرد بعد.</p>
-                `;
-                document.getElementById('questions-list').appendChild(questionDiv);
+                var questions = JSON.parse(localStorage.getItem("questions")) || [];
+                questions.push({ question: questionText, answer: "لم يتم الرد بعد" });
+                localStorage.setItem("questions", JSON.stringify(questions));
+                loadQuestions();
                 document.getElementById('question').value = "";
             } else {
                 alert("يرجى كتابة سؤال أولاً!");
             }
         }
 
+        function loadQuestions() {
+            var questions = JSON.parse(localStorage.getItem("questions")) || [];
+            var questionsList = document.getElementById('questions-list');
+            questionsList.innerHTML = "";
+            questions.forEach((q, index) => {
+                var questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p><strong>سؤال:</strong> ${q.question}</p>
+                    <p class="answer"><strong>الجواب:</strong> ${q.answer}</p>
+                `;
+                questionsList.appendChild(questionDiv);
+            });
+        }
+
         function answerNextQuestion() {
-            var unansweredQuestions = document.querySelectorAll('.question .answer');
-            for (let i = 0; i < unansweredQuestions.length; i++) {
-                if (unansweredQuestions[i].innerText.includes("لم يتم الرد بعد")) {
+            var questions = JSON.parse(localStorage.getItem("questions")) || [];
+            for (let i = 0; i < questions.length; i++) {
+                if (questions[i].answer === "لم يتم الرد بعد") {
                     var answer = prompt("اكتب إجابتك لهذا السؤال:");
                     if (answer) {
-                        unansweredQuestions[i].innerHTML = `<strong>الجواب:</strong> ${answer}`;
+                        questions[i].answer = answer;
+                        localStorage.setItem("questions", JSON.stringify(questions));
+                        loadQuestions();
                     }
                     break;
                 }
@@ -198,7 +211,8 @@
 
         function clearQuestions() {
             if (confirm("هل أنت متأكد من حذف جميع الأسئلة؟")) {
-                document.getElementById('questions-list').innerHTML = "";
+                localStorage.removeItem("questions");
+                loadQuestions();
             }
         }
     </script>
