@@ -58,6 +58,9 @@
             text-align: center;
             margin-top: 30px;
         }
+        .credit p {
+            font-size: 12px; /* جعل النص أصغر */
+        }
         .links {
             text-align: center;
             margin-top: 20px;
@@ -97,6 +100,7 @@
 
         <div class="credit">
             <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
+            <p>© جميع الحقوق محفوظة</p>
         </div>
     </div>
 
