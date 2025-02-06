@@ -142,7 +142,7 @@
 
         <div class="credit">
             <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" target="_blank">عمر</a></p>
-            <p>© جميع الحقوق محفوظة</p>
+            <p style="font-size: 10px;">© جميع الحقوق محفوظة</p>
         </div>
     </div>
 
@@ -151,7 +151,12 @@
         const adminPassword = "12345";
 
         function showLogin() {
-            document.getElementById('login-section').style.display = 'block';
+            var loginSection = document.getElementById('login-section');
+            if (loginSection.style.display === "block") {
+                loginSection.style.display = "none";
+            } else {
+                loginSection.style.display = "block";
+            }
         }
 
         function login() {
