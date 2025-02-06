@@ -7,33 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-        <h1>أحمد حمدي</h1>
-        <p>اسأل وسيجيبك بإذن الله</p>
+        <h1>موقع الأسئلة والأجوبة للشيخ أحمد حمدي</h1>
     </header>
 
     <main>
-        <section id="ask-section">
+        <!-- قسم طرح الأسئلة -->
+        <section id="ask-question">
+            <h2>اسأل سؤالك</h2>
             <input type="text" id="questionInput" placeholder="اكتب سؤالك هنا...">
-            <button onclick="submitQuestion()">إرسال السؤال</button>
+            <button onclick="submitQuestion()">إرسال</button>
         </section>
 
-        <section id="questions-section">
-            <h2>الأسئلة</h2>
+        <!-- قسم عرض جميع الأسئلة -->
+        <section id="questions">
+            <h2>الأسئلة المطروحة</h2>
             <div id="questions-list"></div>
         </section>
 
-        <section id="storage-section">
-            <h2>تخزين الأسئلة</h2>
-            <div id="stored-questions"></div>
-        </section>
-
+        <!-- تسجيل دخول الأدمن -->
         <section id="admin-login">
             <h2>تسجيل دخول الأدمن</h2>
             <input type="password" id="adminPassword" placeholder="كلمة المرور">
             <button onclick="adminLogin()">تسجيل الدخول</button>
         </section>
 
+        <!-- لوحة تحكم الأدمن -->
         <section id="admin-panel" style="display: none;">
             <h2>لوحة تحكم الأدمن</h2>
             <div id="unanswered-questions"></div>
@@ -41,16 +41,24 @@
         </section>
     </main>
 
+    <!-- قسم وسائل التواصل -->
     <footer>
-        <p>صلِّ على النبي ﷺ</p>
-        <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" class="designer-link">عمر</a></p>
         <div id="social-links">
             <a href="https://www.tiktok.com/@ahmedhamdy_06" class="tiktok">TikTok</a>
             <a href="https://www.instagram.com/ahamdy243" class="instagram">Instagram</a>
             <a href="https://youtube.com/@ahmedhamdy1585" class="youtube">YouTube</a>
         </div>
+
+        <!-- توقيع الموقع -->
+        <p>صلِّ على النبي</p>
+        <p>تم التصميم بواسطة <a href="https://t.me/Omar_El3attar" class="designer-link">عمر</a></p>
     </footer>
 
+    <!-- روابط سكربتات الموقع -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>
