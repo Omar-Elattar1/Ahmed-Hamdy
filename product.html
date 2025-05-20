@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تفاصيل المنتج | Bstylk</title>
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+  <header>
+    <h1 id="product-name">اسم المنتج</h1>
+    <button id="back-btn">عودة</button>
+  </header>
+
+  <main>
+    <div class="product-gallery" id="product-gallery">
+      <!-- صور المنتج تظهر هنا كـ carousel -->
+    </div>
+
+    <section class="product-details">
+      <p id="product-description">وصف المنتج...</p>
+      <p id="product-price">السعر: 0 ر.س</p>
+      <p id="product-status">الحالة: متوفر</p>
+      <p id="product-category">التصنيف: ...</p>
+
+      <div id="product-specs">
+        <h3>المواصفات الفنية</h3>
+        <ul id="specs-list"></ul>
+      </div>
+
+      <div id="product-notes">
+        <h3>ملاحظات إضافية</h3>
+        <p id="notes-text"></p>
+      </div>
+
+      <label for="quantity">الكمية:</label>
+      <input type="number" id="quantity" min="1" value="1" />
+
+      <button id="add-to-cart-btn">أضف إلى السلة</button>
+    </section>
+  </main>
+
+  <footer>
+    <p class="watermark">El3attar-Z</p>
+  </footer>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+// firestore.rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // السماح للكل يقرأ الكاتيجوريز والمنتجات
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if false;  // فقط الأدمن يكتب من لوحة الادمن
+    }
+
+    match /products/{prodId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // السماح بكتابة الطلبات (لأن العملاء يرسلون الطلبات)
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // لمنع الكتابة والقراءة لأي شيء آخر
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

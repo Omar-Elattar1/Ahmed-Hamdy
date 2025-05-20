@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin | Bstylk</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <script defer src="js/firebase-config.js"></script>
+  <script defer src="js/admin.js"></script>
+</head>
+<body>
+  <header>
+    <h1>لوحة التحكم - بستايلك</h1>
+  </header>
+
+  <main>
+    <section class="login-section" id="loginSection">
+      <h2>تسجيل الدخول</h2>
+      <input type="password" id="adminPassword" placeholder="ادخل كلمة المرور">
+      <button id="loginBtn">دخول</button>
+      <p id="loginError" class="error"></p>
+    </section>
+
+    <section class="admin-panel hidden" id="adminPanel">
+      <div class="tabs">
+        <button class="tab active" data-tab="categories">التصنيفات</button>
+        <button class="tab" data-tab="products">المنتجات</button>
+        <button class="tab" data-tab="orders">الطلبات</button>
+      </div>
+
+      <div class="tab-content" id="categoriesTab">
+        <h2>إدارة التصنيفات</h2>
+        <form id="categoryForm">
+          <input type="text" id="categoryName" placeholder="اسم التصنيف">
+          <input type="text" id="categoryOrder" placeholder="ترتيب الظهور">
+          <input type="text" id="categoryImageUrl" placeholder="رابط صورة التصنيف">
+          <button type="submit">إضافة / تعديل التصنيف</button>
+        </form>
+        <div id="categoriesList"></div>
+      </div>
+
+      <div class="tab-content hidden" id="productsTab">
+        <h2>إدارة المنتجات</h2>
+        <form id="productForm">
+          <input type="text" id="productNameAr" placeholder="اسم المنتج (عربي)">
+          <input type="text" id="productNameEn" placeholder="Product Name (English)">
+          <input type="text" id="productPrice" placeholder="السعر">
+          <input type="text" id="productStatus" placeholder="الحالة (متوفر، نفد، قريباً)">
+          <input type="text" id="productCategory" placeholder="التصنيف">
+          <textarea id="productDescriptionAr" placeholder="الوصف بالعربية"></textarea>
+          <textarea id="productDescriptionEn" placeholder="Description in English"></textarea>
+          <input type="text" id="productSpecs" placeholder="مواصفات (مثال: اللون، الوزن..)">
+          <input type="text" id="productNotes" placeholder="ملاحظات إضافية (الضمان...)">
+          <input type="text" id="productImages" placeholder="رابط الصور (مفصولة بفاصلة)">
+          <button type="submit">إضافة / تعديل المنتج</button>
+        </form>
+        <div id="productsList"></div>
+      </div>
+
+      <div class="tab-content hidden" id="ordersTab">
+        <h2>الطلبات</h2>
+        <div id="ordersList"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="watermark">El3attar-Z</p>
+  </footer>
+</body>
+</html>

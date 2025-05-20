@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الدفع والتوصيل - Bstylk</title>
+  <link rel="stylesheet" href="css/checkout.css" />
+</head>
+<body>
+  <header>
+    <h1>الدفع والتوصيل</h1>
+    <a href="cart.html" class="btn-back">العودة للسلة</a>
+  </header>
+
+  <main>
+    <form id="checkout-form" class="checkout-form">
+      <label for="name">الاسم الكامل:</label>
+      <input type="text" id="name" required />
+
+      <label for="phone">رقم الهاتف:</label>
+      <input type="tel" id="phone" pattern="[0-9]{10,15}" required />
+
+      <label for="alt-phone">رقم هاتف احتياطي (اختياري):</label>
+      <input type="tel" id="alt-phone" pattern="[0-9]{10,15}" />
+
+      <label for="governorate">المحافظة:</label>
+      <input type="text" id="governorate" required />
+
+      <label for="area">المنطقة:</label>
+      <input type="text" id="area" required />
+
+      <label for="street">الشارع:</label>
+      <input type="text" id="street" required />
+
+      <label for="building">رقم العمارة:</label>
+      <input type="text" id="building" required />
+
+      <p>طريقة الدفع: الدفع عند الاستلام (COD)</p>
+
+      <button type="submit" class="btn-submit">إرسال الطلب</button>
+    </form>
+  </main>
+
+  <footer>
+    <p class="watermark">El3attar-Z</p>
+  </footer>
+
+  <script src="js/checkout.js"></script>
+</body>
+</html>
